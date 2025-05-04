@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure WebApp</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: white; text-align: center; padding: 20px; }
+        .hidden { display: none; }
+        input, button { padding: 10px; margin: 10px; font-size: 1em; }
+        .section { margin-top: 30px; }
+        a { color: #4caf50; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div id="login">
+        <h2>Connexion sécurisée</h2>
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="checkPassword()">Entrer</button>
+        <p id="error" style="color: red;"></p>
+    </div>
+
+    <div id="app" class="hidden">
+        <h1>Suppression de traces numériques</h1>
+        <div class="section">
+            <input type="text" id="name" placeholder="Nom complet">
+            <input type="text" id="email" placeholder="Adresse e-mail">
+            <input type="text" id="pseudo" placeholder="Pseudonyme">
+            <button onclick="search()">Scanner mes traces</button>
+        </div>
+        <div class="section" id="results"></div>
+        <div class="section">
+            <button onclick="generateRequest()">Supprimer mes données</button>
+            <div id="request"></div>
+        </div>
+        <div class="section">
+            <h3>Liens utiles pour supprimer vos données :</h3>
+            <ul style="text-align:left; display:inline-block;">
+                <li><a href="https://www.google.com/webmasters/tools/legal-removal-request?complaint_type=rtbf" target="_blank">Suppression Google</a></li>
+                <li><a href="https://www.facebook.com/help/delete" target="_blank">Supprimer compte Facebook</a></li>
+                <li><a href="https://myaccount.google.com/delete-services-or-account" target="_blank">Supprimer compte Google</a></li>
+                <li><a href="https://www.instagram.com/accounts/remove/request/permanent/" target="_blank">Supprimer compte Instagram</a></li>
+                <li><a href="https://www.tiktok.com/legal/report/privacy" target="_blank">Suppression TikTok</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "#9kR!m7zLp@4Q2*e";
+
+        function checkPassword() {
+            const input = document.getElementById("password").value;
+            if (input === correctPassword) {
+                document.getElementById("login").classList.add("hidden");
+                document.getElementById("app").classList.remove("hidden");
+            } else {
+                document.getElementById("error").innerText = "Mot de passe incorrect.";
+            }
+        }
+
+        function search() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const pseudo = document.getElementById("pseudo").value;
+            let results = `<h3>Résultats de recherche :</h3>`;
+
+            if (name) {
+                results += `<p><a href="https://www.google.com/search?q=${encodeURIComponent(name)}" target="_blank">Recherche Google pour "${name}"</a></p>`;
+                results += `<p><a href="https://duckduckgo.com/?q=${encodeURIComponent(name)}" target="_blank">Recherche DuckDuckGo pour "${name}"</a></p>`;
+            }
+            if (email) {
+                results += `<p><a href="https://www.google.com/search?q=${encodeURIComponent(email)}" target="_blank">Recherche Google pour "${email}"</a></p>`;
+            }
+            if (pseudo) {
+                results += `<p><a href="https://www.google.com/search?q=${encodeURIComponent(pseudo)}" target="_blank">Recherche Google pour "${pseudo}"</a></p>`;
+            }
+
+            document.getElementById("results").innerHTML = results;
+        }
+
+        function generateRequest() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const pseudo = document.getElementById("pseudo").value;
+
+            let request = `<h3>Demande de suppression de données :</h3>`;
+
+            if (name || email || pseudo) {
+                request += `<p>Bonjour, je souhaite exercer mon droit à l’effacement de mes données conformément au RGPD. Veuillez supprimer toutes les informations liées à :</p>`;
+                request += `<ul>`;
+
+                if (name) request += `<li><strong>Nom :</strong> ${name}</li>`;
+                if (email) request += `<li><strong>Email :</strong> ${email}</li>`;
+                if (pseudo) request += `<li><strong>Pseudonyme :</strong> ${pseudo}</li>`;
+
+                request += `</ul><p>Je vous prie de bien vouloir procéder à la suppression de ces données dans les plus brefs délais.</p>`;
+                request += `<p>Merci d'avance.</p>`;
+            } else {
+                request += `<p>Aucune donnée saisie pour la suppression.</p>`;
+            }
+            
+            document.getElementById("request").innerHTML = request;
+        }
+    </script>
+</body>
+</html>
