@@ -17,8 +17,7 @@ How to Use
 
 Hosting
 
-This project is hosted for free on GitHub Pages. You can access it at the following URL:
-https://yourusername.github.io/repositoryname/ (replace yourusername and repositoryname with your own information).
+This project is hosted for free on GitHub Pages. 
 
 License
 
