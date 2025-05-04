@@ -1,4 +1,4 @@
-WebApp Suppression
+WebApp Suppression.
 
 This project allows you to delete personal information quickly and easily. It provides an interface where you can add accounts and request the deletion of associated data, with the ability to send automated email requests for each account.
 
